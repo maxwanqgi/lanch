@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			ul{
+				list-style: none;
+			}
+			.main{
+				width:600px;
+				height:400px;
+				margin:50px auto;
+				position: relative;				
+			}
+			.img-wraper{
+				width:600px;
+				height:400px;
+			}
+			
+			.img-wraper div{
+				width:600px;
+				height:400px;
+				position: absolute;
+				top:0;
+				left: 0;
+				display: none;
+				font-size: 100px;
+				color:#fff;
+				text-align: center;
+				line-height: 400px;
+				font-family: "微软雅黑";
+			}
+			.main .nav{
+				width:100px;
+				height:15px;
+				position: absolute;
+				right:50px;
+				bottom: 50px;
+			}
+			.nav li{
+				width:11px;
+				height:11px;
+				float: left;
+				margin-right: 5px;
+				border: 2px solid #fff;
+			}
+			li.active{
+				background: #fff;
+			}
+			
+			.main a{
+				position: absolute;
+				display: block;
+				width:50px;
+				height:70px;
+				text-align: center;
+				line-height: 70px;
+				font-size: 30px;
+				font-weight: bold;
+				top:170px;
+				text-decoration: none;
+				color:#fff;
+				font-weight: bold;
+				background: rgba(0,0,000.8);
+				display: none;
+			}
+			a.left{
+				left:30px;
+			}
+			a.right{
+				right: 30px;
+			}
+		</style>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="main">
+			<div class="img-wraper">
+				<div style="background: cyan;display: block;">1</div>
+				<div style="background: palevioletred;">2</div>
+				<div style="background: orangered;">3</div>
+				<div style="background: brown;">4</div>
+				<div style="background: crimson;">5</div>
+			</div>
+			<ul class="nav">
+				<li class="active"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<a href="javascript:;" class="left">&lt;</a>
+			<a href="javascript:;" class="right">&gt;</a>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function () {
+			var curIndex = 0;
+			var timer = null;
+			var isMoveing = true;
+			
+			timer = setInterval(move,2000)
+			
+			$('.nav li').click(function () {
+				isMoveing = false;
+				setTimeout(function () {
+					isMoveing = true;
+				},0)
+				curIndex = $(this).index();
+				$(this).addClass('active').siblings().removeClass();
+				$('.img-wraper div').eq(curIndex).fadeIn().siblings().fadeOut();
+				
+			})
+			
+			
+			function move () {
+				if(isMoveing) {
+					$('.img-wraper div').eq(curIndex).fadeIn().siblings().fadeOut();
+					$('.nav li').eq(curIndex).addClass('active').siblings().removeClass();
+					curIndex++;
+					if (curIndex > 4) {
+						curIndex = 0
+					}
+				}
+				
+			}
+		})
+	</script>
+</html>

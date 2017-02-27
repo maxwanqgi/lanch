@@ -1,0 +1,138 @@
+<html>
+
+	<head>
+		<title>pic2Str</title>
+		<script src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.js"></script>
+		<style>
+			.floatLeft {
+				float: left;
+			}
+			
+			.clear {
+				clear: both;
+			}
+			
+			input[type=number] {
+				width: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div>
+			<p><input type="file" id='fileInput' accept="image/*" /></p>
+			<p>
+				灰度范围 [深色] ：<input type="number" min="0" max="255" value='0' id='rgb1f' /> -
+				<input type="number" maxlength="3" value='120' id='rgb1t' /> : 替换文字：
+				<input type="text" size="1" maxlength="1" value='9' id='rgb1s' />
+			</p>
+			<p>
+				灰度范围[普通色]：<input type="number" min="0" max="255" value='120' id='rgb2f' /> -
+				<input type="number" maxlength="3" value='200' id='rgb2t' /> : 替换文字：
+				<input type="text" size="1" maxlength="1" value='0' id='rgb2s' />
+			</p>
+			<p>
+				灰度范围 [浅色] ：<input type="number" min="0" max="255" value='200' id='rgb3f' /> -
+				<input type="number" maxlength="3" value='255' id='rgb3t' /> : 替换文字：
+				<input type="text" size="1" maxlength="1" value='1' id='rgb3s' />
+			</p>
+			<p>
+				一文字横向跨度<input type="number" min="0" max="100" value='2' id='wpx' /> - 一文字纵向跨度
+				<input type="number" min="0" max="100" value='2' id='hpx' />
+			</p>
+		</div>
+		<div><input type="button" value="pic2Str" onclick="pic2Str()" /></div>
+		<div><img style="display:none" id='img' /></div>
+		<div><canvas style="display:none" id='canvas'></canvas></div>
+		<div id='pic2Str'></div>
+
+		<script>
+			var hasFile = false;
+			$(function() {
+				// bind file change event to load the image file
+				var fileInput = document.getElementById("fileInput");
+				fileInput.addEventListener('change', function(event) {
+					var file = fileInput.files[0];
+					var imageType = /^image\//;
+					if (!imageType.test(file.type)) {
+						alert('file type error: ' + file.type + '(image excepted)');
+						return;
+					}
+					var img = document.getElementById("img");
+					img.file = file;
+					// 读取File对象中的内容
+					var reader = new FileReader();
+					reader.onload = (function(aImg) {
+						return function(e) {
+							aImg.src = e.target.result;
+							$("#canvas").css({
+								width: aImg.width + 'px',
+								height: aImg.height + 'px'
+							});
+							$("#canvas").attr('width', aImg.width);
+							$("#canvas").attr('height', aImg.height);
+							var c = document.getElementById("canvas");
+							var ctx = c.getContext("2d");
+							ctx.drawImage(aImg, 0, 0);
+							hasFile = true;
+						};
+					})(img);
+					reader.readAsDataURL(file);
+				}, false);
+			});
+
+			function pic2Str() {
+				var wpx = $("#wpx").val();
+				var hpx = $("#hpx").val();
+				var rgb1f = $("#rgb1f").val();
+				var rgb1t = $("#rgb1t").val();
+				var rgb1s = $("#rgb1s").val();
+				var rgb2f = $("#rgb2f").val();
+				var rgb2t = $("#rgb2t").val();
+				var rgb2s = $("#rgb2s").val();
+				var rgb3f = $("#rgb3f").val();
+				var rgb3t = $("#rgb3t").val();
+				var rgb3s = $("#rgb3s").val();
+				if (!hasFile)
+					return;
+				if (wpx == '' || hpx == '')
+					return;
+				var c = document.getElementById("canvas");
+				var ctx = c.getContext("2d");
+				var imgData = ctx.getImageData(0, 0, c.width, c.height);
+				var wi = Math.floor(imgData.width / wpx);
+				var hi = Math.floor(imgData.height / hpx);
+				var strRst = [];
+				for (var i = 0; i < hi; i++) {
+					var strRow = "";
+					for (var j = 0; j < wi; j++) {
+						var rgbAvg = 0;
+						for (var h = 0; h < hpx; h++) {
+							for (var l = 0; l < wpx; l++) {
+								var min = Math.min(imgData.data[(i * hpx + h) * 4 * imgData.width + (j * wpx * 4 + l)], imgData.data[(i * hpx + h) * 4 * imgData.width + (j * wpx * 4 + l) + 1], imgData.data[(i * hpx + h) * 4 * imgData.width + (j * wpx * 4 + l) + 2]);
+								var max = Math.max(imgData.data[(i * hpx + h) * 4 * imgData.width + (j * wpx * 4 + l)], imgData.data[(i * hpx + h) * 4 * imgData.width + (j * wpx * 4 + l) + 1], imgData.data[(i * hpx + h) * 4 * imgData.width + (j * wpx * 4 + l) + 2]);
+								rgbAvg += (min + max) * 0.5;
+							}
+						}
+						rgbAvg = rgbAvg / (hpx * wpx);
+						if (rgbAvg >= rgb1f && rgbAvg < rgb1t) {
+							strRow += '' + rgb1s;
+						} else if (rgbAvg >= rgb2f && rgbAvg < rgb2t) {
+							strRow += '' + rgb2s;
+						} else if (rgbAvg >= rgb3f && rgbAvg <= rgb3t) {
+							strRow += '' + rgb3s;
+						} else {
+							strRow += "&nbsp;";
+						}
+					}
+					strRst.push(strRow);
+				}
+				strRstHtml = "";
+				for (var x = 0; x < strRst.length; x++)
+					strRstHtml += strRst[x] + '<br/>'
+				$("#pic2Str").html(strRstHtml);
+			}
+		</script>
+	</body>
+
+</html>

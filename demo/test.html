@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			
+			a{
+				text-decoration: none;
+				font-size: 20px;
+				display: block;
+				width: 50px;
+				height: 30px;
+				text-align: center;
+				line-height: 30px;
+				float: left;
+				border:1px solid #DC143C;
+				margin: 20px;
+			}
+			
+		</style>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		
+		<div id="alertBox">
+			
+		</div>
+		<div id="def-div">
+			
+		</div>
+		
+		<a href="javascrpt:;" class="test">1</a>
+		<a href="javascrpt:;" class="test">2</a>
+		<a href="javascrpt:;" class="test">3</a>
+		<a href="javascrpt:;" class="test">4</a>
+		<a href="javascrpt:;" class="test">5</a>
+		
+		<buttton id="btn">按钮</buttton>
+		
+		
+		<script type="text/javascript">
+		
+			//[1,2,3,4,5,6,7,8,9,10,11.....]   --->[[1,2,3,4,5],[6,7,8,9,10],[11,....]]
+			function reduceArray (arr,count) {
+				var len,ar = Array(),k = 0;
+				if (arr.length % count == 0) {
+					len = parseInt(arr.length / count);
+				} else{
+					len = parseInt(arr.length / count) + 1;
+				}
+				for (var i = 0;i < len;i++) {
+					if (ar[i]) {
+						ar[i] = ar[i];
+					}else{
+						ar[i] = [];
+					}
+					for (var a = 0;a < count;a++) {
+						ar[i][a] = arr[k];
+						if (ar[i][a] == undefined) {
+							ar[i].length = arr.length % count;
+						}
+						k++;	
+					}
+				} 	
+				var newAr = ar;
+				console.log(newAr);
+			}
+			reduceArray([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],6)
+			
+			var s = "我们走，皮皮虾"
+			console.log(s.split("").reverse().join(""))
+			
+			console.log()
+			function fn (a) {
+				console.log(a)
+				var a = 2;
+				function a () {
+					
+				}
+				console.log(a)
+			}
+			fn(1)
+			
+			
+			//var aa = document.getElementsByClassName('test')
+			
+			function alertValue (obj) {
+				obj.click(function () {
+					alert($(this).html())
+				})
+			}
+			
+			for (var i = 0;i < $('.test').length;i++) {
+				$('.test').eq(i).addClass('test' + i)
+				alertValue($('.test' + i))
+			}
+			
+			
+			function Master () {
+				this.feed = function (animal,food) {
+					document.write("给" + animal.name + "喂食了" +　food.name)
+				}
+			}
+			//食物父类  
+			function Food (name) {
+				this.name = name;
+			}
+			//食物子类  鱼
+			function Fish (name) {
+				this.food = Food;
+				this.food(name);
+			}
+			//食物子类  骨头
+			function bone (name) {
+				this.food = Food;
+				this.food(name);
+			}
+			//动物父类
+			function Animal (name) {
+				this.name = name;
+			}
+			//动物子类 猫
+			function Cat (name) {
+				this.animal = Animal;
+				this.animal(name)
+			}
+			//动物子类 狗
+			function Dog (name) {
+				this.animal = Animal;
+				this.animal(name);
+			}
+			
+			//创建对象
+			/*
+			var master = new Master();
+			var fish = new Fish("小鱼儿");
+			var bone = new bone("肉骨头");
+			var cat = new Cat("馋猫");
+			var dog = new Dog("癞皮狗");
+			document.write("<br/><br/><br/><br/><br/><hr/>")
+			master.feed(cat,fish)
+			document.write("<br/><hr/>")
+			master.feed(dog,bone)
+			*/
+			
+			
+			var wang = "王琪"
+			alert(encodeURI(wang))
+			
+		</script>
+	</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

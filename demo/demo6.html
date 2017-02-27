@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+	<style type="text/css">
+		#txt{
+			width:30px;
+			height: 50px;
+			text-align: right;
+			line-height: 50px;
+			/*border: 1px solid #DC143C;*/
+			overflow: hidden;
+			position: absolute;
+			right: 30px;
+		}
+	</style>
+	<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="txt">
+		这是用来测试的啊
+	</div>
+</body>
+<script type="text/javascript">
+	$('#txt').hover(function () {
+		$(this).stop().animate({
+			width:'300px'
+		},1000)
+	},function () {
+		$(this).stop().animate({
+			width:'30px'
+		})
+	},1000)
+</script>
+</html>
