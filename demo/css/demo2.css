@@ -33,7 +33,17 @@ ul {
 	font-size: 20px;
 	color: #fff;
 }
-
+#nav li.active-li{
+	-webkit-animation:turn 4s infinite;
+}
+@-webkit-keyframes turn{
+	75%{
+		transform:rotateY(0deg);
+	}
+	100%{
+		transform:rotateY(360deg);
+	}
+}
 #menu_wraper{
 	width:1200px;
 	height:560px;

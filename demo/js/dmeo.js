@@ -60,15 +60,7 @@
 			}
 			move();			
 			focusIndex = index;
-			$('#nav .navMenu'+index).css({'color':'yellow'}).stop().animate({
-				'font-size':'30px'	
-			},200,function() {
-				isMoveing = true;
-			}).siblings().css('color','#fff').stop().animate({
-				'font-size':'20px'
-			},200,function () {
-				isMoveing = true
-			})
+			navAnimate();
 		}	
 	}
 	
@@ -84,19 +76,21 @@
 			}
 			move();
 			focusIndex = index;
-			//console.log(index + '---' + focusIndex);
-			$('#nav .navMenu'+index).css({
-				'color':'yellow'
-			}).stop().animate({
-				'font-size':'30px'				
-			},200,function() {
-				isMoveing = true;
-			}).siblings().css('color','#fff').stop().animate({
-				'font-size':'20px'
-			},200,function () {
-				isMoveing = true;
-			})		
+			navAnimate();
 		}
+	}
+
+	//导航栏对应动画效果
+	function navAnimate () {
+		$('#nav .navMenu'+index).addClass('active-li').css({'color':'yellow'}).stop().animate({
+			'font-size':'30px'	
+		},200,function() {
+			isMoveing = true;
+		}).siblings().removeClass('active-li').css('color','#fff').stop().animate({
+			'font-size':'20px'
+		},200,function () {
+			isMoveing = true
+		})
 	}
 
 	//数字电视界面小选项焦点动画
@@ -534,17 +528,7 @@
 	}
 	
 	//菜单选项焦点框运动事件
-	//jquery animate方法 动画效果不够流畅
-	/*function focusMove () {	
-		$('#menu_wraper .focus-div').stop().animate({
-			width:$('.focus-div').eq(index).parent().children('div').eq(i).outerWidth()-10 + 'px',
-			height:$('.focus-div').eq(index).parent().children('div').eq(i).outerHeight() -10+ 'px',
-			top:$('.focus-div').eq(index).parent().children('div').eq(i).position().top + 'px',
-			left:$('.focus-div').eq(index).parent().children('div').eq(i).position().left + 'px'
-		},200)
-	}*/
-
-	//使用css3过渡效果。希望能达到预期效果。
+	//使用css3过渡效果。
 	function focusMove () {	
 		$('#menu_wraper .focus-div').css({
 			width:$('.focus-div').eq(index).parent().children('div').eq(i).outerWidth()-10 + 'px',
@@ -588,44 +572,5 @@
 			},200)
 		}
 	}
-	/*function move () {
-		var w = $("#menu_wraper").width();
-		if (index == 0 && focusIndex == 4) {
-			$('#menu_wraper .menu-list').eq(focusIndex).css({
-				'-webkit-transition':"left .2s",
-				'left':w*-1 + 'px'
-			})
-			$('#menu_wraper .menu-list').eq(index).css('left',w+'px').css({
-				'-webkit-transition':"left .2s",
-				'left':'0px'
-			})
-		}else if(index == 4 && focusIndex == 0) { 
-			$('#menu_wraper .menu-list').eq(focusIndex).css({
-				'-webkit-transition':"left .2s",
-				'left':w+'px'
-			})
-			$('#menu_wraper .menu-list').eq(index).css('left',w *-1 + 'px').css({
-				'-webkit-transition':"left .2s",
-				'left':'0px'
-			})
-		}else if (index > focusIndex) {  //向左移动
-			$('#menu_wraper .menu-list').eq(focusIndex).css({
-				'-webkit-transition':"left .2s",
-				'left':w * -1 + 'px'
-			})
-			$('#menu_wraper .menu-list').eq(index).css({'left':w+'px'}).css({
-				'-webkit-transition':"left .2s",
-				'left':'0px'
-			})
-		}else if (index < focusIndex) {  //向右移动
-			$('#menu_wraper .menu-list').eq(focusIndex).css({
-				'-webkit-transition':"left .2s",
-				'left':w+'px'
-			})
-			$('#menu_wraper .menu-list').eq(index).css({'left':w*-1+'px'}).css({
-				'-webkit-transition':"left .2s",
-				'left':'0px'
-			})
-		}
-	}*/
 
+	
