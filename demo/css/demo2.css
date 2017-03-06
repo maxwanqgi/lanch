@@ -12,8 +12,7 @@ ul {
 #main{
 	width:1200px;
 	height:680px;
-	margin: 0px auto;
-	
+	margin: 0px auto;	
 }
 #nav_wraper{
 	width:1200px;
@@ -38,10 +37,10 @@ ul {
 }
 @-webkit-keyframes turn{
 	75%{
-		transform:rotateY(0deg);
+		-webkit-transform:rotateY(0deg);
 	}
 	100%{
-		transform:rotateY(360deg);
+		-webkit-transform:rotateY(360deg);
 	}
 }
 #menu_wraper{
