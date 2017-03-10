@@ -11,9 +11,9 @@
 	var focusIndex = 0;   //当前显示的大列表
 	var navFocus = true;  //导航获取焦点
 	var listFocus = true; //下方大的列表获取焦点
-	var isMoveing = true;  //如果在运动中就什么也不做
+	var isMoveing = true; //如果在运动中就什么也不做
 	var isShow = true;    //焦点框只出现一次判定
-	var i = 0;				//焦点狂对应的选项的索引值。
+	var i = 0;			  //焦点狂对应的选项的索引值。
 	
 	
 	//菜单切换
@@ -24,13 +24,13 @@
 				case 39:
 					if (navFocus == true) {
 						listFocus = false;
-						moveToRight()
+						moveToRight();
 					}			
 					break;
 				case 37:		
 					if (navFocus == true) {
 						listFocus = false;
-						moveToLeft()
+						moveToLeft();
 					}	
 					break;
 				case 38:					
@@ -80,15 +80,15 @@
 		}
 	}
 
-	//导航栏对应动画效果
+	//导航栏对应动画
 	function navAnimate () {
 		$('#nav .navMenu'+index).addClass('active-li').css({'color':'yellow'}).stop().animate({
 			'font-size':'30px'	
-		},200,function() {
+		},150,function() {
 			isMoveing = true;
 		}).siblings().removeClass('active-li').css('color','#fff').stop().animate({
 			'font-size':'20px'
-		},200,function () {
+		},150,function () {
 			isMoveing = true
 		})
 	}
@@ -104,7 +104,7 @@
 				if (i == 3) {
 					i = 0
 				}
-				focusMove();			
+				focusMove(index);			
 				//当焦点框在所在界面的左方时，再次按left键，焦点框消失，然后执行menuMove函数，切换到上一个大菜单
 				if (i == -1 || i == 5) {							
 					focusInit(0);
@@ -126,7 +126,7 @@
 				if (i == -2) {
 					i = 3
 				}
-				focusMove();
+				focusMove(index);
 				//当焦点框在所在界面的上方时，再次按up键，焦点框消失，然后执行menuMove函数，恢复大菜单切换
 				if (i == -7 || i == -6 || i == -5 || i == -4) {						
 					focusInit(0);
@@ -136,15 +136,16 @@
 			//right
 			case 39:
 				i += 1;
-						
-				if (i == 9) {
-					i = 5
-				}
-				focusMove();
-				//当焦点框在所在界面的右方时，再次按right键，焦点框消失，然后执行menuMove函数，切换到下一个大菜单
 				if (i == 4 || i == 6) {							
 					focusInit(0);
 				}
+				if (i == 1) {i = 4};		
+				if (i == 9) {
+					i = 5
+				}
+				focusMove(index);
+				//当焦点框在所在界面的右方时，再次按right键，焦点框消失，然后执行menuMove函数，切换到下一个大菜单
+				
 				break;
 			//down
 			case 40:
@@ -174,7 +175,7 @@
 				if (i == 11) {
 					i = 8;
 				}
-				focusMove();
+				focusMove(index);
 				isShow = false;
 				break;
 			case 13:
@@ -196,8 +197,10 @@
 						break;
 					case 5:
 						alert(i)
+						break;
 					case 6:
 						alert(i)
+						break;
 					case 7:
 						alert(i)
 						break;
@@ -222,7 +225,7 @@
 				if (i == 5 || i == 2) {
 					i = 0
 				}
-				focusMove();
+				focusMove(index);
 				if (i == -1) {							
 					focusInit(1);
 				}
@@ -236,18 +239,22 @@
 					i = 1;
 				}
 				
-				focusMove();
+				focusMove(index);
 				if (i == -3 || i == -2 || i == -1) {
 					focusInit(1);
 				}
 				break;
 			case 39:
 				//listFocus = true
-				i += 1;	
-				focusMove();
+				i += 1;
+
 				if (i == 3 || i == 6 || i ==8) {							
 					focusInit(1);
 				}
+				if(i == 1) {
+					i = 3;
+				}
+				focusMove(index);
 				break;
 			case 40:
 				i += 3;
@@ -266,7 +273,7 @@
 				if (i == 4) {
 					i = 3
 				}
-				focusMove()
+				focusMove(index)
 				isShow = false;
 				break;
 			case 13:
@@ -288,8 +295,10 @@
 						break;
 					case 5:
 						alert(i)
+						break;
 					case 6:
 						alert(i)
+						break;
 					case 7:
 						alert(i)
 						break;
@@ -307,21 +316,21 @@
 		switch (keycode2){
 			case 37:
 				i -= 1;	
-				focusMove();
+				focusMove(index);
 				if (i == -1 || i == 3) {							
 					focusInit(2);
 				}
 				break;
 			case 38:
 				i -= 4;
-				focusMove();
+				focusMove(index);
 				if (i == -4 || i == -3 || i == -2 || i == -1) {
 					focusInit(2);
 				}
 				break;
 			case 39:
 				i += 1;	
-				focusMove();
+				focusMove(index);
 				if (i == 4 || i == 8) {							
 					focusInit(2);
 				}
@@ -333,7 +342,7 @@
 				if(i == 9){ i = 5};
 				if(i == 10){ i = 6};
 				if(i == 11){ i = 7};
-				focusMove();
+				focusMove(index);
 				isShow = false;
 				break;
 			case 13:
@@ -351,12 +360,14 @@
 						alert(i)
 						break;
 					case 4:
-						alert(i)
+						alert(i);
 						break;
 					case 5:
-						alert(i)
+						alert(i);
+						break;
 					case 6:
-						alert(i)
+						alert(i);
+						break;
 					case 7:
 						alert(i)
 						break;
@@ -374,21 +385,21 @@
 		switch (keycode3){
 			case 37:
 				i -= 1;	
-				focusMove();
+				focusMove(index);
 				if (i == -1 || i == 3) {							
 					focusInit(3);
 				}
 				break;
 			case 38:
 				i -= 4;
-				focusMove();
+				focusMove(index);
 				if (i == -4 || i == -3 || i == -2 || i == -1) {
 					focusInit(3);
 				}
 				break;
 			case 39:
 				i += 1;	
-				focusMove();
+				focusMove(index);
 				if (i == 4 || i == 8) {							
 					focusInit(3);
 				}
@@ -399,7 +410,7 @@
 				if(i == 9){ i = 5};
 				if(i == 10){ i = 6};
 				if(i == 11){ i = 7};
-				focusMove();
+				focusMove(index);
 				isShow = false;
 				break;
 			case 13:
@@ -440,21 +451,21 @@
 		switch (keycode4){
 			case 37:
 				i -= 1;	
-				focusMove();
+				focusMove(4);
 				if (i == -1 || i == 3) {							
 					focusInit(4);
 				}
 				break;
 			case 38:
 				i -= 4;
-				focusMove();
+				focusMove(4);
 				if (i == -4 || i == -3 || i == -2 || i == -1) {
 					focusInit(4);
 				}
 				break;
 			case 39:
 				i += 1;	
-				focusMove();
+				focusMove(4);
 				if (i == 4 || i == 8) {							
 					focusInit(4);
 				}
@@ -465,7 +476,7 @@
 				if(i == 9){ i = 5};
 				if(i == 10){ i = 6};
 				if(i == 11){ i = 7};
-				focusMove();
+				focusMove(4);
 				isShow = false;
 				break;
 			case 13:
@@ -487,8 +498,10 @@
 						break;
 					case 5:
 						alert(i)
+						break;
 					case 6:
 						alert(i)
+						break;
 					case 7:
 						alert(i)
 						break;
@@ -506,12 +519,12 @@
 		if(isShow == true){
 			$('#menu_wraper .focus-div').eq(index).css({
 				'display':'block',
-				'width':$('.focus-div').eq(index).parent().children('div').eq(0).outerWidth() -10+ 'px',
-				'height':$('.focus-div').eq(index).parent().children('div').eq(0).outerHeight()-10 + 'px',
-				'top':$('.focus-div').eq(index).parent().children('div').eq(0).position().top+'px',
-				'left':$('.focus-div').eq(index).parent().children('div').eq(0).position().left + 'px',
-				'-webkit-transition':"width .2s linear,height .2s linear,top .2s linear,left .2s linear"
-			}).attr("tabindex",0);
+				'width':$('.focus-div').eq(index).parent().children('div').eq(0).outerWidth() + 'px',
+				'height':$('.focus-div').eq(index).parent().children('div').eq(0).outerHeight() + 'px',
+				'top':$('.focus-div').eq(index).parent().children('div').eq(0).position().top-6+'px',
+				'left':$('.focus-div').eq(index).parent().children('div').eq(0).position().left-6+ 'px',
+				'-webkit-transition':"width .15s linear,height .15s linear,top .15s linear,left .15s linear"
+			}).attr("tabindex",0).parent().siblings().children('.focsu-div').css('display','none');
 			
 			$('#menu_wraper .focus-div').eq(index).focus();
 		}
@@ -527,14 +540,13 @@
 		i = 0;
 	}
 	
-	//菜单选项焦点框运动事件
-	//使用css3过渡效果。
-	function focusMove () {	
-		$('#menu_wraper .focus-div').css({
-			width:$('.focus-div').eq(index).parent().children('div').eq(i).outerWidth()-10 + 'px',
-			height:$('.focus-div').eq(index).parent().children('div').eq(i).outerHeight() -10+ 'px',
-			top:$('.focus-div').eq(index).parent().children('div').eq(i).position().top + 'px',
-			left:$('.focus-div').eq(index).parent().children('div').eq(i).position().left + 'px'
+	//菜单选项焦点框动画
+	function focusMove (n) {	
+		$('#menu_wraper .focus-div').eq(n).css({
+			width:$('.focus-div').eq(index).parent().children('div').eq(i).outerWidth() + 'px',
+			height:$('.focus-div').eq(index).parent().children('div').eq(i).outerHeight()+ 'px',
+			top:$('.focus-div').eq(index).parent().children('div').eq(i).position().top-6+ 'px',
+			left:$('.focus-div').eq(index).parent().children('div').eq(i).position().left-6+'px'
 
 		})
 	}
@@ -545,31 +557,31 @@
 		if (index == 0 && focusIndex == 4) {
 			$('#menu_wraper .menu-list').eq(focusIndex).stop(true,true).animate({
 				'left':w*-1 + 'px'
-			},200)
+			},150)
 			$('#menu_wraper .menu-list').eq(index).css('left',w+'px').stop(true,true).animate({
 				'left':'0px'
-			},200)
+			},150)
 		}else if(index == 4 && focusIndex == 0) { 
 			$('#menu_wraper .menu-list').eq(focusIndex).stop(true,true).animate({
 				'left':w+'px'
-			},200)
+			},150)
 			$('#menu_wraper .menu-list').eq(index).css('left',w *-1 + 'px').stop(true,true).animate({
 				'left':'0px'
-			},200)
+			},150)
 		}else if (index > focusIndex) {  //向左移动
 			$('#menu_wraper .menu-list').eq(focusIndex).stop(true,true).animate({
 				'left':w * -1 + 'px'
-			},200)
+			},150)
 			$('#menu_wraper .menu-list').eq(index).css({'left':w+'px'}).stop(true,true).animate({
 				'left':'0px'
-			},200)
+			},150)
 		}else if (index < focusIndex) {  //向右移动
 			$('#menu_wraper .menu-list').eq(focusIndex).stop(true,true).animate({
 				'left':w+'px'
-			},200)
+			},150)
 			$('#menu_wraper .menu-list').eq(index).css({'left':w*-1+'px'}).stop(true,true).animate({
 				'left':'0px'
-			},200)
+			},150)
 		}
 	}
 
