@@ -1,4 +1,4 @@
-
+	'use strick';
 	$(function () {
 		//clock();
 		$("#main").attr("tabindex",0).css('outline','none');
@@ -38,6 +38,7 @@
 				//对应菜单的第一个子选项出现焦点框
 				case 40:
 					navFocus = false;	
+					//focusShow();
 					focusShow();
 					//isShow = false;
 					$("#main").blur();
@@ -84,12 +85,12 @@
 	function navAnimate () {
 		$('#nav .navMenu'+index).addClass('active-li').css({'color':'yellow'}).stop().animate({
 			'font-size':'30px'	
-		},150,function() {
+		},100,function() {
 			isMoveing = true;
 		}).siblings().removeClass('active-li').css('color','#fff').stop().animate({
 			'font-size':'20px'
-		},150,function () {
-			isMoveing = true
+		},100,function () {
+			isMoveing = true;
 		})
 	}
 
@@ -273,7 +274,7 @@
 				if (i == 4) {
 					i = 3
 				}
-				focusMove(index)
+				focusMove(index);
 				isShow = false;
 				break;
 			case 13:
@@ -517,19 +518,52 @@
 	function focusShow () {
 		
 		if(isShow == true){
+			console.log(index);
 			$('#menu_wraper .focus-div').eq(index).css({
 				'display':'block',
 				'width':$('.focus-div').eq(index).parent().children('div').eq(0).outerWidth() + 'px',
 				'height':$('.focus-div').eq(index).parent().children('div').eq(0).outerHeight() + 'px',
 				'top':$('.focus-div').eq(index).parent().children('div').eq(0).position().top-6+'px',
 				'left':$('.focus-div').eq(index).parent().children('div').eq(0).position().left-6+ 'px',
-				'-webkit-transition':"width .15s linear,height .15s linear,top .15s linear,left .15s linear"
-			}).attr("tabindex",0).parent().siblings().children('.focsu-div').css('display','none');
+				'-webkit-transition':"width .1s linear,height .1s linear,top .1s linear,left .1s linear"
+			}).attr("tabindex",0).parent().siblings().children('.focus-div').css('display','none');
 			
 			$('#menu_wraper .focus-div').eq(index).focus();
 		}
 	}
-	
+
+	function focusShow1 () {
+		if (isShow == true) {
+			var focusDiv = document.getElementsByClassName('focus-div');
+			console.log(index)
+			//console.log(focusDiv[index]);
+			var fisrtBrother = focusDiv[index].parentNode.firstElementChild;
+			//console.log(fisrtBrother);
+			
+			//console.log(getStyle(fisrtBrother,'width'));
+			focusDiv[index].style.width = getStyle(fisrtBrother,'width');
+			focusDiv[index].style.height = getStyle(fisrtBrother,'height');
+			focusDiv[index].style.left = parseInt(getStyle(fisrtBrother,'left')) - 6 +'px';
+			focusDiv[index].style.top =  parseInt(getStyle(fisrtBrother,'top')) - 6 +'px';
+			focusDiv[index].style.webkitTransition = "width .1s linear,height .1s linear,top .1s linear,left .1s linear";
+			focusDiv[index].setAttribute('tabindex',0);
+			for(var j = 0;j < focusDiv.length;j++) {
+				focusDiv[j].style.display = "none";
+			}
+			focusDiv[index].style.display = "block";
+			focusDiv[index].focus();
+		}
+	}
+	//获取费行间样式
+	function getStyle(obj,attr){ 
+	    if(obj.currentStyle){  
+	        return obj.currentStyle[attr];
+	    }else{
+	        return getComputedStyle(obj,false)[attr];   //针对非ie
+	    };
+	};
+
+
 	function focusInit (n) {
 		$('#menu_wraper .focus-div').eq(n).css('display','none');
 		navFocus = true;
@@ -557,31 +591,31 @@
 		if (index == 0 && focusIndex == 4) {
 			$('#menu_wraper .menu-list').eq(focusIndex).stop(true,true).animate({
 				'left':w*-1 + 'px'
-			},150)
+			},100)
 			$('#menu_wraper .menu-list').eq(index).css('left',w+'px').stop(true,true).animate({
 				'left':'0px'
-			},150)
+			},100)
 		}else if(index == 4 && focusIndex == 0) { 
 			$('#menu_wraper .menu-list').eq(focusIndex).stop(true,true).animate({
 				'left':w+'px'
-			},150)
+			},100)
 			$('#menu_wraper .menu-list').eq(index).css('left',w *-1 + 'px').stop(true,true).animate({
 				'left':'0px'
-			},150)
+			},100)
 		}else if (index > focusIndex) {  //向左移动
 			$('#menu_wraper .menu-list').eq(focusIndex).stop(true,true).animate({
 				'left':w * -1 + 'px'
-			},150)
+			},100)
 			$('#menu_wraper .menu-list').eq(index).css({'left':w+'px'}).stop(true,true).animate({
 				'left':'0px'
-			},150)
+			},100)
 		}else if (index < focusIndex) {  //向右移动
 			$('#menu_wraper .menu-list').eq(focusIndex).stop(true,true).animate({
 				'left':w+'px'
-			},150)
+			},100)
 			$('#menu_wraper .menu-list').eq(index).css({'left':w*-1+'px'}).stop(true,true).animate({
 				'left':'0px'
-			},150)
+			},100)
 		}
 	}
 

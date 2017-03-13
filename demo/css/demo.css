@@ -76,6 +76,7 @@ ul {
 	background: #222222;
 	left:10px;
 	top:10px;
+
 }
 
 #menu_wraper .menu-list0 .pro-post{
@@ -125,6 +126,7 @@ ul {
 	background: green;
 	line-height: 175px;
 	left:10px;top:380px;
+
 }
 #menu_wraper .menu-list0 .tv-bro{
 	width:175px;
@@ -156,6 +158,7 @@ ul {
 	background: url(../img/gitta.jpg);
 	top:10px;
 	left:10px;
+
 }
 #menu_wraper .menu-list1 .music{
 	width:360px;
@@ -192,7 +195,7 @@ ul {
 	width:175px;
 	height:180px;
 	line-height: 180px;
-	background: yellow;
+	background:sienna ;
 	left:935px;
 	top:200px;
 }
@@ -216,7 +219,7 @@ ul {
 	padding-top: 10px;
 	padding-left: 10px;
 	width: 1110px;
-	height: 570px
+	height: 570px;
 }
 .menu-list2 div,.menu-list3 div,.menu-list4 div{
 	width:260px;height:260px;
@@ -238,7 +241,7 @@ ul {
 }
 #menu_wraper .menu-list .focus-div{
 	display: none;
-	border: 6px solid darkred;
+	border: 6px solid yellow;
 	position: absolute;
 	background: none !important;
 	
